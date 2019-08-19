@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.entities.Guild
 import org.yaml.snakeyaml.Yaml
 import java.io.File
 import java.io.FileInputStream
+import java.util.*
 import java.util.concurrent.CompletableFuture
 
 val yaml = Yaml()
@@ -29,7 +30,9 @@ object GuildSettingsManager {
                     try {
                         val section = it.value as Map<String, Any>
 
-                        return@mapValues GuildSettings(it.key, section["prefix"]?.toString())
+                        val prefix = section["prefix"]?.toString()
+                        val locale = section["locale"]?.let { tag -> Locale.forLanguageTag(tag as String) }
+                        return@mapValues GuildSettings(it.key, prefix, locale)
                     } catch (e: Exception) {
                         println("Failed to load guild settings for player with ID '${it.key}'")
                         e.printStackTrace()
