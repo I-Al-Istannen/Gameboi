@@ -26,6 +26,7 @@ import kotlin.concurrent.scheduleAtFixedRate
 import kotlin.system.exitProcess
 
 fun main() {
+
     initShopItems()
 
     Gameboi.load()
